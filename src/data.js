@@ -1,4 +1,5 @@
-const movies = [
+
+movies = [
   {
     title: 'The Shawshank Redemption',
     year: 1994,
@@ -2001,3 +2002,5 @@ const movies = [
     score: 8
   }
 ];
+
+module.export
