@@ -1,4 +1,3 @@
-
 movies = [
   {
     title: 'The Shawshank Redemption',
@@ -2002,5 +2001,3 @@ movies = [
     score: 8
   }
 ];
-
-module.export

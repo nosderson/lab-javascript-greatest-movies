@@ -1,14 +1,3 @@
-require("./data.js")
-
-const moviesArray = [
-    { year: 2000, score: 9 },
-    { year: 2000, score: 8 },
-    { year: 1978, score: 10 },
-    { year: 1978, score: 7 },
-    { year: 1978, score: 1 },
-    { year: 2000, score: 10 }
-];
-
 // Iteration 1: All directors? - Get the array of all directors.
 // _Bonus_: It seems some of the directors had directed multiple movies so they will pop up multiple times in the array of directors.
 // How could you "clean" a bit this array and make it unified (without duplicates)?
@@ -63,8 +52,6 @@ function turnHoursToMinutes(moviesArray) {
     return copia;
 }
 
-console.log(bestYearAvg(moviesArray))
-
 // BONUS - Iteration 8: Best yearly score average - Best yearly score average
 function bestYearAvg(moviesArray) {
     let mapYears = new Map()
@@ -79,10 +66,10 @@ function bestYearAvg(moviesArray) {
     }
 
     vetorScore.forEach((element, index) => {
-        mapYears.set(vetorScore[index][0].year, vetorScore[index].reduce((result, element) => 
+        mapYears.set(vetorScore[index][0].year, vetorScore[index].reduce((result, element) =>
             result + (element.score || 0), 0) / vetorScore[index].length
         )
-      })
+    })
 
     for (const [key, value] of mapYears) {
         max = key;
