@@ -1,6 +1,13 @@
 require("./data.js")
 
-moviesArray = movies;
+const moviesArray = [
+    { year: 2000, score: 9 },
+    { year: 2000, score: 8 },
+    { year: 1978, score: 10 },
+    { year: 1978, score: 7 },
+    { year: 1978, score: 1 },
+    { year: 2000, score: 10 }
+];
 
 // Iteration 1: All directors? - Get the array of all directors.
 // _Bonus_: It seems some of the directors had directed multiple movies so they will pop up multiple times in the array of directors.
@@ -24,7 +31,7 @@ function scoresAverage(moviesArray) {
 function dramaMoviesScore(moviesArray) {
     const moviesDramas = moviesArray.filter(element => element.genre.includes('Drama'))
     if (moviesDramas.length === 0) return 0
-    const media = moviesDramas.reduce((sum, value) => sum + value.score, 0) / moviesDramas.length
+    const media = moviesDramas.reduce((result, element) => result + element.score, 0) / moviesDramas.length
     return (Math.round(media * 100)) / 100
 }
 
@@ -45,23 +52,49 @@ function turnHoursToMinutes(moviesArray) {
     copia = [...moviesArray];
 
     copia.forEach((element) => {
-        minutos = parseInt(element.duration[0] * 60)
+        minutos = 1 * (element.duration[0] * 60)
         if (element.duration[4] === "m")
-            minutos += parseInt(element.duration[3])
+            minutos += 1 * (element.duration[3])
         if (element.duration[5] === "m")
-            minutos += parseInt((element.duration).substring(3, 5))
+            minutos += 1 * ((element.duration).substring(3, 5))
         element.duration = minutos
     })
 
     return copia;
 }
 
+console.log(bestYearAvg(moviesArray))
 
 // BONUS - Iteration 8: Best yearly score average - Best yearly score average
-function bestYearAvg(moviesArray) { 
-    const mapaYear = new Map();
-
+function bestYearAvg(moviesArray) {
+    let mapYears = new Map()
+    let vetorScore = []
+    let max = 0
     if (!moviesArray.length) return null
 
-   
+    moviesArray.forEach((element, index) => mapYears.set(element.year))
+
+    for (const [key, value] of mapYears) {
+        vetorScore.push(moviesArray.filter(element => element.year === key))
+    }
+
+    vetorScore.forEach((element, index) => {
+        mapYears.set(vetorScore[index][0].year, vetorScore[index].reduce((result, element) => 
+            result + (element.score || 0), 0) / vetorScore[index].length
+        )
+      })
+
+    for (const [key, value] of mapYears) {
+        max = key;
+        break;
+    }
+
+    for (const [key, value] of mapYears) {
+        if (mapYears.get(key) > mapYears.get(max))
+            max = key
+        if (mapYears.get(key) === mapYears.get(max))
+            max = Math.min(key, max)
+    }
+
+    return `The best year was ${max} with an average score of ${mapYears.get(max)}`
 }
